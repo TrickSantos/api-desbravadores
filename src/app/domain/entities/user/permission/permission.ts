@@ -3,7 +3,7 @@ import { Replace } from 'src/helpers/replace';
 
 export type PermissionProps = {
     name: string;
-    description: string;
+    isActive: boolean;
     createdAt: Date;
     updatedAt: Date;
 };
@@ -13,12 +13,16 @@ export class Permission {
     private props: PermissionProps;
 
     constructor(
-        props: Replace<PermissionProps, { createdAt?: Date; updatedAt?: Date }>,
+        props: Replace<
+            PermissionProps,
+            { isActive?: boolean; createdAt?: Date; updatedAt?: Date }
+        >,
         id?: string,
     ) {
         this._id = id || randomUUID();
         this.props = {
             ...props,
+            isActive: props.isActive || true,
             createdAt: props.createdAt || new Date(),
             updatedAt: props.updatedAt || new Date(),
         };
@@ -32,8 +36,8 @@ export class Permission {
         return this.props.name;
     }
 
-    get description(): string {
-        return this.props.description;
+    get isActive(): boolean {
+        return this.props.isActive;
     }
 
     get createdAt(): Date {
@@ -52,7 +56,13 @@ export class Permission {
         };
     }
 
-    public toJSON(): PermissionProps {
-        return this.props;
+    public toJSON() {
+        return {
+            id: this.id,
+            name: this.name,
+            isActive: this.isActive,
+            createdAt: this.createdAt,
+            updatedAt: this.updatedAt,
+        };
     }
 }

@@ -21,16 +21,20 @@ model Club {
   isActive    Boolean  @default(true)
   units       Unit[]
   User        User[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
 
 model Unit {
-  id       String  @id
-  name     String
-  clubId   String
-  logo     String?
-  club     Club    @relation(fields: [clubId], references: [id])
-  isActive Boolean @default(true)
-  members  User[]
+  id        String   @id
+  name      String
+  clubId    String
+  logo      String?
+  club      Club     @relation(fields: [clubId], references: [id])
+  isActive  Boolean  @default(true)
+  members   User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model User {
@@ -49,37 +53,58 @@ model User {
   unit        Unit[]
   roles       Role[]
   permissions Permission[]
+  contacts    Contact[]
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+}
+
+model Contact {
+  id        String   @id
+  userId    String
+  firstName String
+  lastName  String
+  email     String
+  phone     String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Class {
-  id    String @id
-  name  String
-  users User[]
+  id        String   @id
+  name      String
+  users     User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Specialty {
-  id       String  @id
-  name     String
-  isActive Boolean @default(true)
-  users    User[]
+  id        String   @id
+  name      String
+  category  String
+  users     User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Role {
-  id           String      @id
-  name         String
-  isActive     Boolean     @default(true)
-  users        User[]
-  Permission   Permission? @relation(fields: [permissionId], references: [id])
-  permissionId String?
+  id          String       @id
+  name        String
+  isActive    Boolean      @default(true)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  users       User[]
+  permissions Permission[]
 }
 
 model Permission {
-  id       String  @id
-  name     String
-  isActive Boolean @default(true)
-  roles    Role[]
-  User     User?   @relation(fields: [userId], references: [id])
-  userId   String?
+  id        String   @id
+  name      String
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  roles     Role[]
+  users     User[]
 }
 
 enum Gender {
