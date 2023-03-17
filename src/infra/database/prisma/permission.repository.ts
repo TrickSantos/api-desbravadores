@@ -2,7 +2,9 @@ import { Permission } from '@domain/entities/user/permission/permission';
 import { PermissionRepository } from '@domain/repositories/permission.repository';
 import { Permission as PrismaPermission } from '@prisma/client';
 import { PrismaService } from './prisma.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PrismaPermissionRepository implements PermissionRepository {
     constructor(private prisma: PrismaService) {}
 
@@ -42,9 +44,9 @@ export class PrismaPermissionRepository implements PermissionRepository {
         });
     }
 
-    async delete(permission: Permission): Promise<void> {
+    async delete(id: string): Promise<void> {
         await this.prisma.permission.delete({
-            where: { id: permission.id },
+            where: { id },
         });
     }
 

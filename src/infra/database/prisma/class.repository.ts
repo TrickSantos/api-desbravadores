@@ -2,7 +2,9 @@ import { Class } from '@domain/entities/user/class/class';
 import { Class as PrismaClass } from '@prisma/client';
 import { ClassRepository } from '@domain/repositories/class.repository';
 import { PrismaService } from './prisma.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PrismaClassRepository implements ClassRepository {
     constructor(private readonly prisma: PrismaService) {}
 
@@ -12,7 +14,10 @@ export class PrismaClassRepository implements ClassRepository {
 
     async create(classe: Class): Promise<void> {
         await this.prisma.class.create({
-            data: classe,
+            data: {
+                id: classe.id,
+                name: classe.name,
+            },
         });
     }
 

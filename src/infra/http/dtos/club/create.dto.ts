@@ -8,7 +8,9 @@ export const CreateClubSchema = z.object({
         .url({ message: 'Logo must be a valid URL' }),
     association: z.string({ required_error: 'Association is required' }),
     city: z.string({ required_error: 'City is required' }),
-    fundation: z.date({ required_error: 'Fundation is required' }),
+    fundation: z
+        .string({ required_error: 'Fundation is required' })
+        .transform((fundation) => new Date(fundation)),
     state: z.string({ required_error: 'State is required' }),
 });
 

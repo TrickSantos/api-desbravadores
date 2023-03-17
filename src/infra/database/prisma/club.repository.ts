@@ -2,7 +2,9 @@ import { Club } from '@domain/entities/club/club';
 import { Club as PrismaClub } from '@prisma/client';
 import { ClubRepository } from '@domain/repositories/club.repository';
 import { PrismaService } from './prisma.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PrismaClubRepository implements ClubRepository {
     constructor(private readonly prisma: PrismaService) {}
 
@@ -12,14 +14,30 @@ export class PrismaClubRepository implements ClubRepository {
 
     async create(club: Club): Promise<void> {
         await this.prisma.club.create({
-            data: club,
+            data: {
+                id: club.id,
+                name: club.name,
+                association: club.association,
+                city: club.city,
+                state: club.state,
+                fundation: club.fundation,
+                logo: club.logo,
+            },
         });
     }
 
     async update(club: Club): Promise<void> {
         await this.prisma.club.update({
             where: { id: club.id },
-            data: club,
+            data: {
+                id: club.id,
+                name: club.name,
+                association: club.association,
+                city: club.city,
+                state: club.state,
+                fundation: club.fundation,
+                logo: club.logo,
+            },
         });
     }
 
@@ -41,9 +59,8 @@ export class PrismaClubRepository implements ClubRepository {
         return this.toClass(club);
     }
 
-    async findAll(): Promise<Club[]> {
-        return await this.prisma.club
-            .findMany()
-            .then((clubs) => clubs.map(this.toClass));
+    async findAll() {
+        const clubs = await this.prisma.club.findMany();
+        return clubs.map((club) => this.toClass(club));
     }
 }

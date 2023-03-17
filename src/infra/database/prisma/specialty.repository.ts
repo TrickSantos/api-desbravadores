@@ -2,7 +2,9 @@ import { Specialty } from '@domain/entities/user/specialty/specialty';
 import { Specialty as PrismaSpecialty } from '@prisma/client';
 import { SpecialtyRepository } from '@domain/repositories/specialty.repository';
 import { PrismaService } from './prisma.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PrismaSpecialtyRepository implements SpecialtyRepository {
     constructor(private prisma: PrismaService) {}
 
@@ -36,9 +38,9 @@ export class PrismaSpecialtyRepository implements SpecialtyRepository {
         });
     }
 
-    async delete(specialty: Specialty): Promise<void> {
+    async delete(id: string): Promise<void> {
         await this.prisma.specialty.delete({
-            where: { id: specialty.id },
+            where: { id },
         });
     }
 

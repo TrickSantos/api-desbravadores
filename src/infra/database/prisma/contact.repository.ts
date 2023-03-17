@@ -2,7 +2,9 @@ import { Contact } from '@domain/entities/user/contact/contact';
 import { ContactRepository } from '@domain/repositories/contact.repository';
 import { PrismaService } from './prisma.service';
 import { Contact as PrismaContact } from '@prisma/client';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PrismaContactRepository implements ContactRepository {
     constructor(private prisma: PrismaService) {}
 
@@ -45,9 +47,9 @@ export class PrismaContactRepository implements ContactRepository {
         });
     }
 
-    async delete(contact: Contact): Promise<void> {
+    async delete(id: string): Promise<void> {
         await this.prisma.contact.delete({
-            where: { id: contact.id },
+            where: { id },
         });
     }
 

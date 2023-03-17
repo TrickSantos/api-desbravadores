@@ -125,7 +125,7 @@ export class User implements UserProps {
     public toJSON() {
         return {
             id: this.id,
-            organizationId: this.clubId,
+            clubId: this.clubId,
             name: this.name,
             email: this.email,
             gender: this.gender,

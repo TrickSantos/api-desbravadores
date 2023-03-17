@@ -7,6 +7,6 @@ export class ListAllClubs {
     constructor(private organizationRepository: ClubRepository) {}
 
     async execute(): Promise<Club[]> {
-        return this.organizationRepository.findAll();
+        return await this.organizationRepository.findAll();
     }
 }

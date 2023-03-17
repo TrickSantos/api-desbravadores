@@ -2,7 +2,9 @@ import { Role } from '@domain/entities/user/role/role';
 import { Role as PrismaRole } from '@prisma/client';
 import { RoleRepository } from '@domain/repositories/role.repository';
 import { PrismaService } from './prisma.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PrismaRoleRepository implements RoleRepository {
     constructor(private prisma: PrismaService) {}
 
@@ -42,9 +44,9 @@ export class PrismaRoleRepository implements RoleRepository {
         });
     }
 
-    async delete(role: Role): Promise<void> {
+    async delete(id: string): Promise<void> {
         await this.prisma.role.delete({
-            where: { id: role.id },
+            where: { id },
         });
     }
 

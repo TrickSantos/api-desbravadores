@@ -2,7 +2,9 @@ import { Unit } from '@domain/entities/unit/unit';
 import { Unit as PrismaUnit } from '@prisma/client';
 import { UnitRepository } from '@domain/repositories/unit.repository';
 import { PrismaService } from './prisma.service';
+import { Injectable } from '@nestjs/common';
 
+@Injectable()
 export class PrismaUnitRepository implements UnitRepository {
     constructor(private readonly prisma: PrismaService) {}
 

@@ -28,7 +28,7 @@ export class UsersController {
     @Get()
     async listAll() {
         const users = await this.listAllUsers.execute();
-        return users.map((user) => user.toJSON);
+        return users.map((user) => user.toJSON());
     }
 
     @Get(':id')
