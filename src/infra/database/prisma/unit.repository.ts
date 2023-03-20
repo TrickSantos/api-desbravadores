@@ -1,16 +1,12 @@
 import { Unit } from '@domain/entities/unit/unit';
-import { Unit as PrismaUnit } from '@prisma/client';
 import { UnitRepository } from '@domain/repositories/unit.repository';
 import { PrismaService } from './prisma.service';
 import { Injectable } from '@nestjs/common';
+import unitMapper from '@mappers/unitMapper';
 
 @Injectable()
 export class PrismaUnitRepository implements UnitRepository {
     constructor(private readonly prisma: PrismaService) {}
-
-    toClass(unit: PrismaUnit): Unit {
-        return new Unit(unit, unit.id);
-    }
 
     async create(unit: Unit): Promise<void> {
         await this.prisma.unit.create({
@@ -51,12 +47,40 @@ export class PrismaUnitRepository implements UnitRepository {
             return null;
         }
 
-        return this.toClass(unit);
+        return unitMapper.toClass(unit);
     }
 
     async findAll(): Promise<Unit[]> {
         return await this.prisma.unit
             .findMany()
-            .then((units) => units.map(this.toClass));
+            .then((units) => units.map(unitMapper.toClass));
+    }
+
+    async addMember(payload: {
+        unitId: string;
+        memberId: string;
+    }): Promise<void> {
+        await this.prisma.unit.update({
+            where: { id: payload.unitId },
+            data: {
+                members: {
+                    connect: { id: payload.memberId },
+                },
+            },
+        });
+    }
+
+    async removeMember(payload: {
+        unitId: string;
+        memberId: string;
+    }): Promise<void> {
+        await this.prisma.unit.update({
+            where: { id: payload.unitId },
+            data: {
+                members: {
+                    disconnect: { id: payload.memberId },
+                },
+            },
+        });
     }
 }

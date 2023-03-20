@@ -81,7 +81,7 @@ export class Unit implements UnitProps {
             clubId: this.clubId,
             name: this.name,
             logo: this.logo,
-            members: this.members,
+            members: this.members.map((member) => member.toJSON()),
             isActive: this.isActive,
             createdAt: this.createdAt,
             updatedAt: this.updatedAt,

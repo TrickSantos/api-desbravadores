@@ -25,10 +25,12 @@ import { DeleteSpecialtyUseCase } from '@useCases/specialty/delete';
 import { FindSpecialtyByIdUseCase } from '@useCases/specialty/findById';
 import { ListAllSpecialtiesUseCase } from '@useCases/specialty/listAll';
 import { UpdateSpecialtyUseCase } from '@useCases/specialty/update';
+import { AddMemberToUnitUseCase } from '@useCases/unit/addMember';
 import { CreateUnitUseCase } from '@useCases/unit/create';
 import { DeleteUnitUseCase } from '@useCases/unit/delete';
 import { FindUnitByIdUseCase } from '@useCases/unit/findById';
 import { ListAllUnitsUseCase } from '@useCases/unit/listAll';
+import { RemoveMemberFromUnitUseCase } from '@useCases/unit/removeMember';
 import { UpdateUnitUseCase } from '@useCases/unit/update';
 import { CreateUserUseCase } from '@useCases/user/create';
 import { DeleteUserUseCase } from '@useCases/user/delete';
@@ -75,6 +77,8 @@ import { UsersController } from './controllers/users.controller';
         FindUnitByIdUseCase,
         UpdateUnitUseCase,
         DeleteUnitUseCase,
+        AddMemberToUnitUseCase,
+        RemoveMemberFromUnitUseCase,
         CreateSpecialtyUseCase,
         DeleteSpecialtyUseCase,
         FindSpecialtyByIdUseCase,
