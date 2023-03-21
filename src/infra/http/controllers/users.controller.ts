@@ -7,10 +7,12 @@ import {
     Post,
     Put,
 } from '@nestjs/common';
+import { AddRoleUseCase } from '@useCases/user/addRole';
 import { CreateUserUseCase } from '@useCases/user/create';
 import { DeleteUserUseCase } from '@useCases/user/delete';
 import { FindUserByIdUseCase } from '@useCases/user/findById';
 import { ListAllUsersUseCase } from '@useCases/user/listAll';
+import { RemoveRoleUseCase } from '@useCases/user/removeRole';
 import { UpdateUserUseCase } from '@useCases/user/update';
 import { CreateUserDTO } from '../dtos/user/create.dto';
 import { UpdateUserDto } from '../dtos/user/update.dto';
@@ -23,6 +25,8 @@ export class UsersController {
         private findUserById: FindUserByIdUseCase,
         private updateUser: UpdateUserUseCase,
         private deleteUser: DeleteUserUseCase,
+        private addRole: AddRoleUseCase,
+        private removeRole: RemoveRoleUseCase,
     ) {}
 
     @Get()
@@ -60,5 +64,21 @@ export class UsersController {
     @Delete(':id')
     async delete(@Param('id') id: string) {
         await this.deleteUser.execute(id);
+    }
+
+    @Post(':userId/roles/:roleId')
+    async addRoleToUser(
+        @Param('userId') userId: string,
+        @Param('roleId') roleId: string,
+    ) {
+        await this.addRole.execute({ userId, roleId });
+    }
+
+    @Delete(':userId/roles/:roleId')
+    async removeRoleFromUser(
+        @Param('userId') userId: string,
+        @Param('roleId') roleId: string,
+    ) {
+        await this.removeRole.execute({ userId, roleId });
     }
 }

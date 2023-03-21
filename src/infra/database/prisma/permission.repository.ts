@@ -61,4 +61,32 @@ export class PrismaPermissionRepository implements PermissionRepository {
         const permissions = await this.prisma.permission.findMany();
         return permissions.map((permission) => this.toClass(permission));
     }
+
+    async addToUser(payload: {
+        userId: string;
+        permissionId: string;
+    }): Promise<void> {
+        await this.prisma.permission.update({
+            where: { id: payload.permissionId },
+            data: {
+                users: {
+                    connect: { id: payload.userId },
+                },
+            },
+        });
+    }
+
+    async removeFromUser(payload: {
+        userId: string;
+        permissionId: string;
+    }): Promise<void> {
+        await this.prisma.permission.update({
+            where: { id: payload.permissionId },
+            data: {
+                users: {
+                    disconnect: { id: payload.userId },
+                },
+            },
+        });
+    }
 }

@@ -7,10 +7,12 @@ import {
     Post,
     Put,
 } from '@nestjs/common';
+import { AddToUserUseCase } from '@useCases/permission/addToUser';
 import { CreatePermissionUseCase } from '@useCases/permission/create';
 import { DeletePermissionUseCase } from '@useCases/permission/delete';
 import { FindPermissionByIdUseCase } from '@useCases/permission/findById';
 import { ListAllPermissionsUseCase } from '@useCases/permission/listAll';
+import { RemoveFromUserUseCase } from '@useCases/permission/removeFromUser';
 import { UpdatePermissionUseCase } from '@useCases/permission/update';
 import { CreatePermissionDTO } from '../dtos/permission/create.dto';
 import { UpdatePermissionDTO } from '../dtos/permission/update.dto';
@@ -23,6 +25,8 @@ export class PermissionsController {
         private findByIdPermission: FindPermissionByIdUseCase,
         private updatePermission: UpdatePermissionUseCase,
         private deletePermission: DeletePermissionUseCase,
+        private addPermissionToUser: AddToUserUseCase,
+        private removePermissionFromUser: RemoveFromUserUseCase,
     ) {}
 
     @Get()
@@ -55,5 +59,27 @@ export class PermissionsController {
     @Delete(':id')
     async delete(@Param('id') id: string) {
         await this.deletePermission.execute(id);
+    }
+
+    @Post(':userId/permissions/:permissionId')
+    async addPermission(
+        @Param('userId') userId: string,
+        @Param('permissionId') permissionId: string,
+    ) {
+        await this.addPermissionToUser.execute({
+            permissionId,
+            userId,
+        });
+    }
+
+    @Delete(':userId/permissions/:permissionId')
+    async removePermission(
+        @Param('userId') userId: string,
+        @Param('permissionId') permissionId: string,
+    ) {
+        await this.removePermissionFromUser.execute({
+            permissionId,
+            userId,
+        });
     }
 }

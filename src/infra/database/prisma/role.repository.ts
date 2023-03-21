@@ -61,4 +61,32 @@ export class PrismaRoleRepository implements RoleRepository {
         const roles = await this.prisma.role.findMany();
         return roles.map((role) => this.toClass(role));
     }
+
+    async addPermission(payload: {
+        roleId: string;
+        permissionId: string;
+    }): Promise<void> {
+        await this.prisma.role.update({
+            where: { id: payload.roleId },
+            data: {
+                permissions: {
+                    connect: { id: payload.permissionId },
+                },
+            },
+        });
+    }
+
+    async removePermission(payload: {
+        roleId: string;
+        permissionId: string;
+    }): Promise<void> {
+        await this.prisma.role.update({
+            where: { id: payload.roleId },
+            data: {
+                permissions: {
+                    disconnect: { id: payload.permissionId },
+                },
+            },
+        });
+    }
 }

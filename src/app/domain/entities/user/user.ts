@@ -16,7 +16,7 @@ export type UserProps = {
     isActive: boolean;
     permissions: Permission[];
     roles: Role[];
-    contact?: Contact[];
+    contacts?: Contact[];
     classes?: Class[];
     specialties?: Specialty[];
     createdAt: Date;
@@ -47,7 +47,7 @@ export class User implements UserProps {
             createdAt: props.createdAt || new Date(),
             updatedAt: props.updatedAt || new Date(),
             permissions: props.permissions || [],
-            contact: props.contact || [],
+            contacts: props.contacts || [],
             roles: props.roles || [],
             classes: props.classes || [],
             specialties: props.specialties || [],
@@ -90,8 +90,8 @@ export class User implements UserProps {
         return this.props.roles;
     }
 
-    get contact(): Contact[] {
-        return this.props.contact;
+    get contacts(): Contact[] {
+        return this.props.contacts;
     }
 
     get classes(): Class[] {
@@ -130,11 +130,15 @@ export class User implements UserProps {
             email: this.email,
             gender: this.gender,
             birthday: this.birthday,
-            permissions: this.permissions,
-            roles: this.roles,
-            classes: this.classes,
-            specialties: this.specialties,
-            contact: this.contact,
+            permissions: this.permissions.map((permission) =>
+                permission.toJSON(),
+            ),
+            roles: this.roles.map((role) => role.toJSON()),
+            classes: this.classes.map((classItem) => classItem.toJSON()),
+            specialties: this.specialties.map((specialty) =>
+                specialty.toJSON(),
+            ),
+            contacts: this.contacts.map((contact) => contact.toJSON()),
             isActive: this.isActive,
             createdAt: this.createdAt,
             updatedAt: this.updatedAt,

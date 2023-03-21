@@ -7,10 +7,12 @@ import {
     Post,
     Put,
 } from '@nestjs/common';
+import { AddPermissionUseCase } from '@useCases/role/addPermission';
 import { CreateRoleUseCase } from '@useCases/role/create';
 import { DeleteRoleUseCase } from '@useCases/role/delete';
 import { FindRoleByIdUseCase } from '@useCases/role/findById';
 import { ListAllRolesUseCase } from '@useCases/role/listAll';
+import { RemovePermissionUseCase } from '@useCases/role/removePermission';
 import { UpdateRoleUseCase } from '@useCases/role/update';
 import { CreateRoleDTO } from '../dtos/role/create.dto';
 import { UpdateRoleDTO } from '../dtos/role/update.dto';
@@ -23,6 +25,8 @@ export class RolesController {
         private findByIdRole: FindRoleByIdUseCase,
         private updateRole: UpdateRoleUseCase,
         private deleteRole: DeleteRoleUseCase,
+        private addPermissionToRole: AddPermissionUseCase,
+        private removePermissionFromRole: RemovePermissionUseCase,
     ) {}
 
     @Get()
@@ -55,5 +59,21 @@ export class RolesController {
     @Delete(':id')
     async delete(@Param('id') id: string) {
         await this.deleteRole.execute(id);
+    }
+
+    @Post(':roleId/permissions/:permissionId')
+    async addPermission(
+        @Param('roleId') roleId: string,
+        @Param('permissionId') permissionId: string,
+    ) {
+        await this.addPermissionToRole.execute({ roleId, permissionId });
+    }
+
+    @Delete(':roleId/permissions/:permissionId')
+    async removePermission(
+        @Param('roleId') roleId: string,
+        @Param('permissionId') permissionId: string,
+    ) {
+        await this.removePermissionFromRole.execute({ roleId, permissionId });
     }
 }
