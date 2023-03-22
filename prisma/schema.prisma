@@ -26,36 +26,38 @@ model Club {
 }
 
 model Unit {
-  id        String   @id
-  name      String
-  clubId    String
-  logo      String?
-  club      Club     @relation(fields: [clubId], references: [id])
-  isActive  Boolean  @default(true)
-  members   User[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String          @id
+  name       String
+  clubId     String
+  logo       String?
+  club       Club            @relation(fields: [clubId], references: [id])
+  isActive   Boolean         @default(true)
+  members    User[]
+  createdAt  DateTime        @default(now())
+  updatedAt  DateTime        @updatedAt
+  challenges ChallengeUnit[]
 }
 
 model User {
-  id          String       @id
-  clubId      String
-  name        String
-  email       String       @unique
-  password    String
-  photo       String?
-  birthday    DateTime
-  gender      Gender
-  isActive    Boolean      @default(true)
-  club        Club         @relation(fields: [clubId], references: [id])
-  classes     Class[]
-  specialty   Specialty[]
-  unit        Unit[]
-  roles       Role[]
-  permissions Permission[]
-  contacts    Contact[]
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
+  id            String          @id
+  clubId        String
+  name          String
+  email         String          @unique
+  password      String
+  photo         String?
+  birthday      DateTime
+  gender        Gender
+  isActive      Boolean         @default(true)
+  club          Club            @relation(fields: [clubId], references: [id])
+  classes       Class[]
+  specialty     Specialty[]
+  unit          Unit[]
+  roles         Role[]
+  permissions   Permission[]
+  contacts      Contact[]
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  ChallengeUser ChallengeUser[]
 }
 
 model Contact {
@@ -110,4 +112,76 @@ model Permission {
 enum Gender {
   MASCULINO
   FEMININO
+}
+
+model Challenge {
+  id            String          @id
+  name          String
+  cover         String?
+  description   String
+  point         Int
+  category      Category
+  type          Type
+  isActive      Boolean         @default(true)
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  units         ChallengeUnit[]
+  ChallengeUser ChallengeUser[]
+}
+
+enum Category {
+  PRESENCA
+  CLASSE
+  PARTICIPACAO
+  ESPIRITUALIDADE
+  SOCIAL
+}
+
+enum Type {
+  INDIVIDUAL
+  EQUIPE
+}
+
+model ChallengeUnit {
+  id                   String                 @id
+  challengeId          String
+  unitId               String
+  isCompleted          Boolean                @default(false)
+  challenge            Challenge              @relation(fields: [challengeId], references: [id])
+  unit                 Unit                   @relation(fields: [unitId], references: [id])
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  ChallengeUnitUploads ChallengeUnitUploads[]
+}
+
+model ChallengeUnitUploads {
+  id              String        @id
+  challengeUnitId String
+  url             String
+  description     String?
+  challengeUnit   ChallengeUnit @relation(fields: [challengeUnitId], references: [id])
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+}
+
+model ChallengeUser {
+  id                   String                 @id
+  challengeId          String
+  userId               String
+  isCompleted          Boolean                @default(false)
+  challenge            Challenge              @relation(fields: [challengeId], references: [id])
+  user                 User                   @relation(fields: [userId], references: [id])
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  ChallengeUserUploads ChallengeUserUploads[]
+}
+
+model ChallengeUserUploads {
+  id              String        @id
+  challengeUserId String
+  url             String
+  description     String?
+  challengeUser   ChallengeUser @relation(fields: [challengeUserId], references: [id])
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
 }
