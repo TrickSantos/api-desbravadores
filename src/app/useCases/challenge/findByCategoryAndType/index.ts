@@ -12,7 +12,7 @@ type findByCategoryAndTypePayload = {
 };
 
 @Injectable()
-export class FindChallengeByCategoryAndType {
+export class FindChallengeByCategoryAndTypeUseCase {
     constructor(private repository: ChallengeRepository) {}
 
     async execute(payload: findByCategoryAndTypePayload): Promise<Challenge[]> {

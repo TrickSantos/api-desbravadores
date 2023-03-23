@@ -20,7 +20,7 @@ type UpdateChallengeDTO = {
 };
 
 @Injectable()
-export class UpdateChallenge {
+export class UpdateChallengeUseCase {
     constructor(private repository: ChallengeRepository) {}
 
     async execute(payload: UpdateChallengeDTO): Promise<void> {

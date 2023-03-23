@@ -1,3 +1,4 @@
+import { ChallengeRepository } from '@domain/repositories/challenge.repository';
 import { ClassRepository } from '@domain/repositories/class.repository';
 import { ClubRepository } from '@domain/repositories/club.repository';
 import { ContactRepository } from '@domain/repositories/contact.repository';
@@ -5,8 +6,13 @@ import { PermissionRepository } from '@domain/repositories/permission.repository
 import { RoleRepository } from '@domain/repositories/role.repository';
 import { SpecialtyRepository } from '@domain/repositories/specialty.repository';
 import { UnitRepository } from '@domain/repositories/unit.repository';
+import { ChallengeUnitRepository } from '@domain/repositories/unitChallenge.repository';
 import { UserRepository } from '@domain/repositories/user.repository';
+import { ChallengeUserRepository } from '@domain/repositories/userChallenge.repository';
 import { Module } from '@nestjs/common';
+import { PrismaChallengeRepository } from './prisma/challenge.repository';
+import { PrismaChallengeUnitRepository } from './prisma/challengeUnit.repository';
+import { PrismaChallengeUserRepository } from './prisma/challengeUser.repository';
 import { PrismaClassRepository } from './prisma/class.repository';
 import { PrismaClubRepository } from './prisma/club.repository';
 import { PrismaContactRepository } from './prisma/contact.repository';
@@ -52,6 +58,18 @@ import { PrismaUserRepository } from './prisma/user.repository';
             provide: ContactRepository,
             useClass: PrismaContactRepository,
         },
+        {
+            provide: ChallengeRepository,
+            useClass: PrismaChallengeRepository,
+        },
+        {
+            provide: ChallengeUnitRepository,
+            useClass: PrismaChallengeUnitRepository,
+        },
+        {
+            provide: ChallengeUserRepository,
+            useClass: PrismaChallengeUserRepository,
+        },
     ],
     exports: [
         ClubRepository,
@@ -62,6 +80,9 @@ import { PrismaUserRepository } from './prisma/user.repository';
         PermissionRepository,
         SpecialtyRepository,
         ContactRepository,
+        ChallengeRepository,
+        ChallengeUnitRepository,
+        ChallengeUserRepository,
     ],
 })
 export class DatabaseModule {}

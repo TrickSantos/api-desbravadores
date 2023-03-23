@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ChallengeNotFound } from '@useCases/errors/ChallengeNotFound';
 
 @Injectable()
-export class DeleteChallenge {
+export class DeleteChallengeUseCase {
     constructor(private repository: ChallengeRepository) {}
 
     async execute(id: string): Promise<void> {

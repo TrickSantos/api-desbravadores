@@ -143,15 +143,15 @@ enum Type {
 }
 
 model ChallengeUnit {
-  id                   String                 @id
-  challengeId          String
-  unitId               String
-  isCompleted          Boolean                @default(false)
-  challenge            Challenge              @relation(fields: [challengeId], references: [id])
-  unit                 Unit                   @relation(fields: [unitId], references: [id])
-  createdAt            DateTime               @default(now())
-  updatedAt            DateTime               @updatedAt
-  ChallengeUnitUploads ChallengeUnitUploads[]
+  id          String                 @id
+  challengeId String
+  unitId      String
+  isCompleted Boolean                @default(false)
+  challenge   Challenge              @relation(fields: [challengeId], references: [id])
+  unit        Unit                   @relation(fields: [unitId], references: [id])
+  createdAt   DateTime               @default(now())
+  updatedAt   DateTime               @updatedAt
+  uploads     ChallengeUnitUploads[]
 }
 
 model ChallengeUnitUploads {
@@ -165,15 +165,15 @@ model ChallengeUnitUploads {
 }
 
 model ChallengeUser {
-  id                   String                 @id
-  challengeId          String
-  userId               String
-  isCompleted          Boolean                @default(false)
-  challenge            Challenge              @relation(fields: [challengeId], references: [id])
-  user                 User                   @relation(fields: [userId], references: [id])
-  createdAt            DateTime               @default(now())
-  updatedAt            DateTime               @updatedAt
-  ChallengeUserUploads ChallengeUserUploads[]
+  id          String                 @id
+  challengeId String
+  userId      String
+  isCompleted Boolean                @default(false)
+  challenge   Challenge              @relation(fields: [challengeId], references: [id])
+  user        User                   @relation(fields: [userId], references: [id])
+  createdAt   DateTime               @default(now())
+  updatedAt   DateTime               @updatedAt
+  uploads     ChallengeUserUploads[]
 }
 
 model ChallengeUserUploads {

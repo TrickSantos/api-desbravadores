@@ -5,19 +5,7 @@ type findByChallengeIdAndUserIdPayload = {
     userId: string;
 };
 
-type uploadsPayload = {
-    url: string;
-    description?: string;
-};
-
-type completeChallengePayload = {
-    challengeId: string;
-    userId: string;
-    uploads: uploadsPayload[];
-};
-
 export abstract class ChallengeUserRepository {
-    abstract create(challengeUser: ChallengeUser): Promise<void>;
     abstract update(challengeUser: ChallengeUser): Promise<void>;
     abstract delete(id: string): Promise<void>;
     abstract findById(id: string): Promise<ChallengeUser>;
@@ -27,7 +15,5 @@ export abstract class ChallengeUserRepository {
     abstract findByChallengeIdAndUserId(
         payload: findByChallengeIdAndUserIdPayload,
     ): Promise<ChallengeUser>;
-    abstract completeChallenge(
-        payload: completeChallengePayload,
-    ): Promise<void>;
+    abstract completeChallenge(payload: ChallengeUser): Promise<void>;
 }

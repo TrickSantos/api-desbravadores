@@ -5,7 +5,7 @@ import { ChallengeUnitUpload } from './uploads';
 type ChallengeUnitProps = {
     challengeId: string;
     unitId: string;
-    uploads: ChallengeUnitUpload[];
+    uploads?: ChallengeUnitUpload[];
     isCompleted: boolean;
     createdAt: Date;
     updatedAt: Date;
@@ -19,6 +19,7 @@ export class ChallengeUnit {
         props: Replace<
             ChallengeUnitProps,
             {
+                uploads?: ChallengeUnitUpload[];
                 isCompleted?: boolean;
                 createdAt?: Date;
                 updatedAt?: Date;
@@ -29,6 +30,7 @@ export class ChallengeUnit {
         this._id = id || randomUUID();
         this.props = {
             ...props,
+            uploads: props.uploads || [],
             isCompleted: props.isCompleted || false,
             createdAt: props.createdAt || new Date(),
             updatedAt: props.updatedAt || new Date(),

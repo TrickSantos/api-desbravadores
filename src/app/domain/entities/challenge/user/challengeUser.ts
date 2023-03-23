@@ -6,7 +6,7 @@ type ChallengeUserProps = {
     challengeId: string;
     userId: string;
     isCompleted: boolean;
-    uploads: ChallengeUserUpload[];
+    uploads?: ChallengeUserUpload[];
     createdAt: Date;
     updatedAt: Date;
 };
@@ -19,6 +19,7 @@ export class ChallengeUser {
         props: Replace<
             ChallengeUserProps,
             {
+                uploads?: ChallengeUserUpload[];
                 isCompleted?: boolean;
                 createdAt?: Date;
                 updatedAt?: Date;
@@ -29,6 +30,7 @@ export class ChallengeUser {
         this._id = id || randomUUID();
         this.props = {
             ...props,
+            uploads: props.uploads || [],
             isCompleted: props.isCompleted || false,
             createdAt: props.createdAt || new Date(),
             updatedAt: props.updatedAt || new Date(),
@@ -61,6 +63,14 @@ export class ChallengeUser {
 
     get updatedAt(): Date {
         return this.props.updatedAt;
+    }
+
+    public update(data: Partial<ChallengeUserProps>): void {
+        this.props = {
+            ...this.props,
+            ...data,
+            updatedAt: new Date(),
+        };
     }
 
     public toJSON() {

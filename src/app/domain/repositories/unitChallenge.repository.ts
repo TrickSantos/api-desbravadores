@@ -6,7 +6,7 @@ type findByChallengeIdAndUnitIdPayload = {
 };
 
 export abstract class ChallengeUnitRepository {
-    abstract create(challengeUnit: ChallengeUnit): Promise<void>;
+    abstract completeChallenge(challengeUnit: ChallengeUnit): Promise<void>;
     abstract update(challengeUnit: ChallengeUnit): Promise<void>;
     abstract delete(id: string): Promise<void>;
     abstract findById(id: string): Promise<ChallengeUnit>;

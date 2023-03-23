@@ -6,7 +6,7 @@ import { ChallengeRepository } from '@domain/repositories/challenge.repository';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class FindChallengeByCategory {
+export class FindChallengeByCategoryUseCase {
     constructor(private repository: ChallengeRepository) {}
 
     async execute(category: ChallengeCategory): Promise<Challenge[]> {
