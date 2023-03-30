@@ -13,9 +13,6 @@ type CreateChallengeDTO = {
     point: number;
     category: ChallengeCategory;
     type: ChallengeType;
-    isActive: boolean;
-    createdAt: Date;
-    updatedAt: Date;
 };
 
 @Injectable()

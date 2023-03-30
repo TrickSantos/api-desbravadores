@@ -1,3 +1,5 @@
+import { JwtAuthGuard } from '@infra/authentication/guards/jwt.guard';
+import { LocalAuthGuard } from '@infra/authentication/guards/local.guard';
 import {
     Body,
     Controller,
@@ -6,6 +8,7 @@ import {
     Param,
     Post,
     Put,
+    UseGuards,
 } from '@nestjs/common';
 import { AddMemberToUnitUseCase } from '@useCases/unit/addMember';
 import { CreateUnitUseCase } from '@useCases/unit/create';
@@ -35,6 +38,7 @@ export class UnitsController {
         return units.map((unit) => unit.toJSON());
     }
 
+    @UseGuards(JwtAuthGuard)
     @Get(':id')
     async findById(@Param('id') id: string) {
         const unit = await this.findUnitById.execute(id);

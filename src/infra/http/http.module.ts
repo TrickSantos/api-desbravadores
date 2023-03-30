@@ -14,6 +14,10 @@ import { SpecialtyUseCaseModule } from '@useCases/specialty/specialty.module';
 import { UserUseCaseModule } from '@useCases/user/user.module';
 import { UnitUseCaseModule } from '@useCases/unit/unit.module';
 import { ChallengeUseCaseModule } from '@useCases/challenge/challenge.module';
+import { ChallengesController } from './controllers/challenge.controller';
+import { ChallengeUnitsController } from './controllers/challengeUnit.controller';
+import { AuthenticationModule } from '@infra/authentication/authentication.module';
+import { AuthController } from './controllers/auth.controller';
 
 @Module({
     imports: [
@@ -25,8 +29,12 @@ import { ChallengeUseCaseModule } from '@useCases/challenge/challenge.module';
         SpecialtyUseCaseModule,
         UnitUseCaseModule,
         UserUseCaseModule,
+        AuthenticationModule,
     ],
     controllers: [
+        AuthController,
+        ChallengesController,
+        ChallengeUnitsController,
         ClassesController,
         ClubsController,
         UsersController,

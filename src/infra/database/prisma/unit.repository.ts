@@ -41,6 +41,7 @@ export class PrismaUnitRepository implements UnitRepository {
     async findById(id: string): Promise<Unit> {
         const unit = await this.prisma.unit.findUnique({
             where: { id },
+            include: { members: true },
         });
 
         if (!unit) {
@@ -60,6 +61,7 @@ export class PrismaUnitRepository implements UnitRepository {
         unitId: string;
         memberId: string;
     }): Promise<void> {
+        console.log('payload', payload);
         await this.prisma.unit.update({
             where: { id: payload.unitId },
             data: {
