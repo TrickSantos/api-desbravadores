@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import { Replace } from 'src/helpers/replace';
+import { Presenca } from '../challenge/presenca/presenca';
 import { Class } from './class/class';
 import { Contact } from './contact/contact';
 import { Permission } from './permission/permission';
@@ -19,6 +20,7 @@ export type UserProps = {
     contacts?: Contact[];
     classes?: Class[];
     specialties?: Specialty[];
+    presencas?: Presenca[];
     createdAt: Date;
     updatedAt: Date;
 };
@@ -51,6 +53,7 @@ export class User implements UserProps {
             roles: props.roles || [],
             classes: props.classes || [],
             specialties: props.specialties || [],
+            presencas: props.presencas || [],
         };
     }
 

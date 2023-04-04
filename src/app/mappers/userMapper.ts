@@ -1,3 +1,4 @@
+import { Presenca } from '@domain/entities/challenge/presenca/presenca';
 import { Class } from '@domain/entities/user/class/class';
 import { Contact } from '@domain/entities/user/contact/contact';
 import { Permission } from '@domain/entities/user/permission/permission';
@@ -11,6 +12,7 @@ import {
     Class as ClassPrisma,
     Specialty as SpecialtyPrisma,
     Contact as ContactPrisma,
+    Presenca as PresencaPrisma,
 } from '@prisma/client';
 
 type Input = UserPrisma & {
@@ -19,6 +21,7 @@ type Input = UserPrisma & {
     classes?: ClassPrisma[];
     specialties?: SpecialtyPrisma[];
     contacts?: ContactPrisma[];
+    presencas?: PresencaPrisma[];
 };
 
 class UserMapper {
@@ -37,6 +40,10 @@ class UserMapper {
             (contact) => new Contact(contact, contact.id),
         );
 
+        const presencas = data.presencas?.map(
+            (presenca) => new Presenca(presenca, presenca.id),
+        );
+
         return new User(
             {
                 name: data.name,
@@ -51,6 +58,7 @@ class UserMapper {
                 classes,
                 specialties,
                 contacts,
+                presencas,
                 createdAt: data.createdAt,
                 updatedAt: data.updatedAt,
             },

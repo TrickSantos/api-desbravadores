@@ -11,18 +11,19 @@ datasource db {
 }
 
 model Club {
-  id          String   @id
+  id          String    @id
   name        String
   logo        String?
   fundation   DateTime
   city        String
   state       String
   association String
-  isActive    Boolean  @default(true)
+  isActive    Boolean   @default(true)
   units       Unit[]
-  User        User[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  members     User[]
+  reunioes    Reunion[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
 }
 
 model Unit {
@@ -58,6 +59,7 @@ model User {
   createdAt     DateTime        @default(now())
   updatedAt     DateTime        @updatedAt
   ChallengeUser ChallengeUser[]
+  presencas     Presenca[]
 }
 
 model Contact {
@@ -130,7 +132,6 @@ model Challenge {
 }
 
 enum Category {
-  PRESENCA
   CLASSE
   PARTICIPACAO
   ESPIRITUALIDADE
@@ -184,4 +185,33 @@ model ChallengeUserUploads {
   challengeUser   ChallengeUser @relation(fields: [challengeUserId], references: [id])
   createdAt       DateTime      @default(now())
   updatedAt       DateTime      @updatedAt
+}
+
+model Reunion {
+  id          String     @id
+  clubId      String
+  name        String
+  description String
+  date        DateTime
+  isActive    Boolean    @default(true)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  presencas   Presenca[]
+  club        Club       @relation(fields: [clubId], references: [id])
+}
+
+model Presenca {
+  id          String   @id
+  reunionId   String
+  userId      String
+  date        DateTime
+  potualidade Boolean
+  biblia      Boolean
+  caderno     Boolean
+  lenco       Boolean
+  vestuario   Boolean
+  user        User     @relation(fields: [userId], references: [id])
+  reunion     Reunion  @relation(fields: [reunionId], references: [id])
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

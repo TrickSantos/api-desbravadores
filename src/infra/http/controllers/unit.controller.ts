@@ -1,5 +1,4 @@
 import { JwtAuthGuard } from '@infra/authentication/guards/jwt.guard';
-import { LocalAuthGuard } from '@infra/authentication/guards/local.guard';
 import {
     Body,
     Controller,

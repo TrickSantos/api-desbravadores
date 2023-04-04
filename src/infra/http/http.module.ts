@@ -18,6 +18,10 @@ import { ChallengesController } from './controllers/challenge.controller';
 import { ChallengeUnitsController } from './controllers/challengeUnit.controller';
 import { AuthenticationModule } from '@infra/authentication/authentication.module';
 import { AuthController } from './controllers/auth.controller';
+import { PresencaUseCaseModule } from '@useCases/presenca/presenca.module';
+import { PresencasController } from './controllers/presenca.controller';
+import { ReuniaoController } from './controllers/reuniao.controller';
+import { ReuniaoUseCaseModule } from '@useCases/reuniao/reuniao.module';
 
 @Module({
     imports: [
@@ -25,10 +29,12 @@ import { AuthController } from './controllers/auth.controller';
         ClassUseCaseModule,
         ClubUseCaseModule,
         PermissionUseCaseModule,
+        PresencaUseCaseModule,
         RoleUseCaseModule,
         SpecialtyUseCaseModule,
         UnitUseCaseModule,
         UserUseCaseModule,
+        ReuniaoUseCaseModule,
         AuthenticationModule,
     ],
     controllers: [
@@ -39,7 +45,9 @@ import { AuthController } from './controllers/auth.controller';
         ClubsController,
         UsersController,
         UnitsController,
+        PresencasController,
         PermissionsController,
+        ReuniaoController,
         RolesController,
         SpecialtiesController,
     ],

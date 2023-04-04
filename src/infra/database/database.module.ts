@@ -3,6 +3,7 @@ import { ClassRepository } from '@domain/repositories/class.repository';
 import { ClubRepository } from '@domain/repositories/club.repository';
 import { ContactRepository } from '@domain/repositories/contact.repository';
 import { PermissionRepository } from '@domain/repositories/permission.repository';
+import { ReuniaoRepository } from '@domain/repositories/reuniao.repository';
 import { RoleRepository } from '@domain/repositories/role.repository';
 import { SpecialtyRepository } from '@domain/repositories/specialty.repository';
 import { UnitRepository } from '@domain/repositories/unit.repository';
@@ -18,10 +19,13 @@ import { PrismaClubRepository } from './prisma/club.repository';
 import { PrismaContactRepository } from './prisma/contact.repository';
 import { PrismaPermissionRepository } from './prisma/permission.repository';
 import { PrismaModule } from './prisma/prisma.module';
+import { ReuniaoPrismaRepository } from './prisma/reuniao.repository';
 import { PrismaRoleRepository } from './prisma/role.repository';
 import { PrismaSpecialtyRepository } from './prisma/specialty.repository';
 import { PrismaUnitRepository } from './prisma/unit.repository';
 import { PrismaUserRepository } from './prisma/user.repository';
+import { PresencaRepository } from '@domain/repositories/presenca.repository';
+import { PresencaPrismaRepository } from './prisma/presenca.repository';
 
 @Module({
     imports: [PrismaModule],
@@ -70,6 +74,14 @@ import { PrismaUserRepository } from './prisma/user.repository';
             provide: ChallengeUserRepository,
             useClass: PrismaChallengeUserRepository,
         },
+        {
+            provide: ReuniaoRepository,
+            useClass: ReuniaoPrismaRepository,
+        },
+        {
+            provide: PresencaRepository,
+            useClass: PresencaPrismaRepository,
+        },
     ],
     exports: [
         ClubRepository,
@@ -83,6 +95,8 @@ import { PrismaUserRepository } from './prisma/user.repository';
         ChallengeRepository,
         ChallengeUnitRepository,
         ChallengeUserRepository,
+        ReuniaoRepository,
+        PresencaRepository,
     ],
 })
 export class DatabaseModule {}

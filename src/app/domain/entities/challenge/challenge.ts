@@ -19,7 +19,6 @@ export enum ChallengeType {
 }
 
 export enum ChallengeCategory {
-    PRESENCA = 'PRESENCA',
     CLASSE = 'CLASSE',
     PARTICIPACAO = 'PARTICIPACAO',
     ESPIRITUALIDADE = 'ESPIRITUALIDADE',
